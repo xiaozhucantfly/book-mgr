@@ -1,0 +1,17 @@
+.auth .title-info {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.auth .form {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.auth .form .item {
+  margin-bottom: 16px;
+}
+
+.auth .form .item button {
+  width: 100%;
+}
