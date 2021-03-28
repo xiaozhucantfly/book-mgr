@@ -1,7 +1,30 @@
+// 背景
+.bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url("https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+// 表单部分
 .auth {
     .title-info {
-        text-align: center;
+        
         margin-top: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 32px;
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+        h2 {margin: 0;}
     }
     .form {
         width: 400px;
