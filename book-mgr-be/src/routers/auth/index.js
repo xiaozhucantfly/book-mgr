@@ -6,6 +6,7 @@ const router = new Router({
     prefix: '/auth',
 });
 
+// 注册功能
 router.post('/register', async (ctx) => {
     const {
         account,
