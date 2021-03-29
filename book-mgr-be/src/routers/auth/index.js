@@ -2,8 +2,9 @@ const Router = require('@koa/router');
 const mongoose = require('mongoose');
 const { getBody } = require('../../helpers/utils');
 const jwt = require('jsonwebtoken');
-
+// 拿到对应的module
 const User = mongoose.model('User');
+const InviteCode = mongoose.model('InviteCode');
 
 const router = new Router({
     prefix: '/auth',
@@ -14,9 +15,10 @@ router.post('/register', async (ctx) => {
     const {
         account,
         password,
+        inviteCode,
     } = getBody(ctx);
-
-    if (account === '' || password ==='') {
+    // 做一个表单校验
+    if (account === '' || password ==='' || inviteCode ==='') {
         ctx.body = {
             code: 0,
             msg: '字段不能为空',
@@ -24,12 +26,36 @@ router.post('/register', async (ctx) => {
         };
         return;
     };
-    
-    const one = await User.findOne({
+    // 找有无邀请码
+    const findCode = await InviteCode.findOne({
+        code: inviteCode,
+    }).exec();
+    // 若无邀请码
+    if (!findCode) {
+        ctx.body = {
+            code: 0,
+            msg: '邀请码无效',
+            data: null,
+        };
+        return;
+    };
+    // 若邀请码已经被用
+    if (findCode.user) {
+        ctx.body = {
+            code: 0,
+            msg: '该邀请码已被使用',
+            data: null,
+        };
+        return;
+    };
+
+    //去找account 为传递上来的“account” 用户 
+    const findUser = await User.findOne({
         account,
     }).exec();
-    
-    if (one) {
+    // 判断有无用户
+    if (findUser) {
+        // 若有则提示
         ctx.body = {
             code: 0,
             msg: '注册失败，已存在该用户',
@@ -37,13 +63,24 @@ router.post('/register', async (ctx) => {
         };
         return;
     };
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
 
+    // 创建一个用户
     const user = new User({
         account,
         password,
     });
+
+    // 把创建的用户传递到mongodb
     const res = await user.save();
+    // 邀请码绑定唯一ID
+    findCode.user = res._id;
+    // 拿到时间戳
+    findCode.meta.updatedAt = new Date().getTime();
+    // 保存数据
+    await findCode.save();
+
+    // 响应成功
     ctx.body = {
         code: 1,
         msg: '注册成功',

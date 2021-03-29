@@ -5,6 +5,7 @@ const { getMate } = require('../helpers');
 // 服务端的信息
 // 
 const InviteCodeSchema = mongoose.Schema({
+    // 邀请码
     code: String,
     // 用来注册哪个账户
     user: String,

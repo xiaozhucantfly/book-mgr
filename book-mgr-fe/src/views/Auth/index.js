@@ -19,7 +19,7 @@ export default defineComponent({
         const regForm = reactive({
             account: '',
             password: '',
-             
+            inviteCode: '',
         });
         // 注册逻辑
         const register = async () => {
@@ -32,9 +32,15 @@ export default defineComponent({
                 message.info('请输入密码');
                 return;
             };
-            
+            if (regForm.inviteCode === '') {
+                message.info('请输入邀请码');
+                return;
+            };
 
-            const res = await auth.register(regForm.account, regForm.password);
+            const res = await auth.register(
+                regForm.account, 
+                regForm.password,
+                regForm.inviteCode);
             result(res)
                 .success((data) =>{
                     message.success(data.msg);

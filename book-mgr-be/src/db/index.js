@@ -1,6 +1,6 @@
 require('./Schemas/InviteCode');
 require('./Schemas/User');
-
+require('./Schemas/Book');
 const mongoose = require('mongoose');
 const connect = () => {
     return new Promise((resolve) => {

@@ -45,7 +45,7 @@
                     </a-input>
                 </div>
                 <div class="item">
-                    <a-input size="large" placeholder="邀请码">
+                    <a-input size="large" placeholder="邀请码" v-model:value="regForm.inviteCode">
                         <template #prefix><MailOutlined /></template>
                     </a-input>
                 </div>

@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export const register = (account, password) => {
+export const register = (account, password, inviteCode) => {
     return axios.post('http://localhost:3000/auth/register',{
         account,
         password,
+        inviteCode,
     });
 };
 export const login = (account, password) => {
