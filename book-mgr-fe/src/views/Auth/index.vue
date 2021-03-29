@@ -13,12 +13,12 @@
                 <!-- 登陆 -->
             <a-tab-pane key="1" tab="登陆">
                 <div class="item">
-                    <a-input size="large" placeholder="账户">
+                    <a-input size="large" placeholder="账户" v-model:value="loginForm.account">
                         <template #prefix><UserOutlined /></template>
                     </a-input>
                 </div>
                 <div class="item">
-                    <a-input size="large" placeholder="密码">
+                    <a-input size="large" placeholder="密码" v-model:value="loginForm.password">
                         <template #prefix><LockOutlined /></template>
                     </a-input>
                 </div>
@@ -26,7 +26,7 @@
                         <a href="">忘记密码</a>
                 </div>
                 <div class="item">
-                        <a-button size="large" type="primary">
+                        <a-button @click="login" size="large" type="primary">
                             登陆
                         </a-button>
                 </div> 

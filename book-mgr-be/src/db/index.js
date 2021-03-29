@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+require('./Schemas/InviteCode');
 require('./Schemas/User');
 
-
+const mongoose = require('mongoose');
 const connect = () => {
     return new Promise((resolve) => {
         mongoose.connect('mongodb://127.0.0.1:27017/book-mgr');
