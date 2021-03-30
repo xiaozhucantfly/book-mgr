@@ -12,9 +12,13 @@ const defaultFormData = {
 };
 
 export default defineComponent({
-    setup() {
-        // 注册用表单数据
-        // const account = ref('');
+    // 添加一条的开关的返回的值为props
+    props: {
+        show: Boolean,
+    },
+    setup(props, context) {
+       
+        // 书籍添加表单
         const addForm = reactive(clone(defaultFormData));
 
         const submit = async () => {
@@ -30,9 +34,17 @@ export default defineComponent({
                     message.success(data.msg);
                 }); 
         };
+        
+        const close = () =>{
+            // emit用来触发自己setshow  
+            context.emit('update:show', false);
+        };
+        
         return {
             addForm,
             submit,
+            props,
+            close,
         };
     },
 });

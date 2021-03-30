@@ -6,3 +6,11 @@ export const add = (form) => {
     );
 };
 
+export const list = (data) => {
+    return axios.get('http://localhost:3000/book/list',
+        {
+            params: data,
+        }
+    );
+};
+

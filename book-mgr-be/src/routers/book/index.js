@@ -34,9 +34,33 @@ router.post('/add', async (ctx) =>{
 });
 // 获取书籍的接口
 router.get('/list', async (ctx) =>{
-    const list = await Book.find().exec();
+    const {
+        page = 1,
+        keyword = '',
+    } = ctx.query;  
+    let {
+        size = 10,
+    } = ctx.query;
+    size = Number(size);
+
+    const query = {};
+    if (keyword) {
+        query.name = keyword;
+    }
+
+    const list = await Book
+        .find(query)
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec();
+    const total = await Book.countDocuments();
     ctx.body = {
-        data: list,
+        data: {
+            total,
+            list,
+            page,
+            size,
+        },
         code: 1,
         msg: '获取列表成功',
     }

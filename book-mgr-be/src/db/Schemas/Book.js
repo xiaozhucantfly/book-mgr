@@ -14,7 +14,7 @@ const BookSchema = new mongoose.Schema({
     // 出版日期
     publishDate: String, 
     // 分类
-    classift: String,
+    classify: String,
 
 
 

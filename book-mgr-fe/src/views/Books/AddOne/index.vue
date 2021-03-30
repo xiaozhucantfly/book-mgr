@@ -2,8 +2,9 @@
     <div>
         <a-modal
             title="添加书籍"
-            :visible="true"
+            :visible="props.show"
             @ok="submit"
+            @cancel="close"
             >
             <!-- 弹框正文 -->
             <a-form :label-col="{ span: 6 }" >
