@@ -25,3 +25,7 @@ export const result = (respons, authShowErrorMsg = true) => {
         },
     };
 };
+
+export const clone = (obj) => {
+    return JSON.parse(JSON.stringify(obj));
+};

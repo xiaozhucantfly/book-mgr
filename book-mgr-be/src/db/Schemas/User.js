@@ -4,7 +4,7 @@ const { getMate } = require('../helpers');
 
 // 服务端的信息
 // 
-const UserSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     account: String,
     password: String,
 

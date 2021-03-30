@@ -18,6 +18,7 @@
             </a-table>
 
         </a-card>
+        <add-one />
     </div>
 </template>
 

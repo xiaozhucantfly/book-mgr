@@ -1,6 +1,11 @@
 import { defineComponent } from 'vue';
+import AddOne from './AddOne/index.vue';
 
 export default defineComponent({
+    components: {
+        AddOne, 
+    },
+
     setup() {
 
         const columns = [
@@ -11,7 +16,7 @@ export default defineComponent({
         const dataSource = [];
         return {
             columns,
-            dataSouce,
+            dataSource,
         }
     },
 });
