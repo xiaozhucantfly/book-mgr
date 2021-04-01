@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // 导入方法getmate
-const { getMate } = require('../helpers');
+const { getMeta, preSave } = require('../helpers');
 
 // 服务端的信息
 // 
@@ -21,7 +21,7 @@ const BookSchema = new mongoose.Schema({
 
 
 
-    meta: getMate(),
+    meta: getMeta(),
 });
-
+BookSchema.pre('save',preSave );
 mongoose.model('Book', BookSchema);

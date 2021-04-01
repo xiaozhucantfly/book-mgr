@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// 导入方法getmate
-const { getMate } = require('../helpers');
+// 导入方法getMeta
+const { getMeta, preSave } = require('../helpers');
 
 // 服务端的信息
 // 
@@ -10,7 +10,7 @@ const InviteCodeSchema = mongoose.Schema({
     // 用来注册哪个账户
     user: String,
 
-    meta: getMate(),
+    meta: getMeta(),
 });
-
+InviteCodeSchema.pre('save',preSave );
 mongoose.model('InviteCode', InviteCodeSchema);

@@ -1,5 +1,7 @@
 import { defineComponent, ref, onMounted, } from 'vue';
 import { book } from '@/service';
+// 操作路由的方法router  不是route
+import { useRouter } from 'vue-router';
 import { message, Modal, Input } from 'ant-design-vue';
 import { result, formatTimestamp } from '@/helpers/utils';
 // 模板引入
@@ -15,7 +17,7 @@ export default defineComponent({
     },
 
     setup() {
-
+        const router = new useRouter();
         const columns = [
             {
                 title: '书名',
@@ -142,7 +144,7 @@ export default defineComponent({
                     result(res)
                         .success((data) => {
                             
-                            if (type === type) {
+                            if (type === 'IN_COUNT') {
                                 // 入库
                                  num = Math.abs(num);
                             } else {
@@ -163,15 +165,20 @@ export default defineComponent({
                 },
             });
         }; 
-
+        // 显示更新弹框
         const update = ({ record }) => {
             showUpdateModal.value = true;
             curEditBook.value = record;
         };
-
+        // 更新列表某行数据
         const updateCurBook = (newData) => {
             
             Object.assign(curEditBook.value, newData);
+        };
+        // 进入书籍详情页
+        const toDetail = ({ record }) => {
+            router.push(`/books/${record._id}`);
+
         };
 
         return {
@@ -192,6 +199,7 @@ export default defineComponent({
             update,
             curEditBook,
             updateCurBook,
+            toDetail
         }
     },
 });
