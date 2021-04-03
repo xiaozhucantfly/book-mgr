@@ -1,6 +1,7 @@
 const Router = require('@koa/router');
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
+const config = require('../../project.config')
 
 const { getBody } = require('../../helpers/utils');
 // const jwt = require('jsonwebtoken');
@@ -16,13 +17,23 @@ router.get('/list', async (ctx) => {
     let {
          page,
          size,
+         keyword,
     } = ctx.query;
     // 用let 才是变量  const是常量
     page = Number(page);
     size = Number(size);
 
+    const query = {};
+    // 查询就是query
+    if (keyword) {
+        query.account = keyword;
+    };
+
     const list = await User
-        .find()
+        .find(query)
+        .sort({
+            _id: -1,
+        })
         .skip((page - 1) * size)
         .limit(size)
         .exec();
@@ -41,5 +52,72 @@ router.get('/list', async (ctx) => {
 
     }
 });
+// 删除用户的接口
+router.delete('/:id', async (ctx) => {
+    
+    const {
+        id,
+    } = ctx.params;
+    const delMsg = await User.deleteOne({
+        _id: id,
+    });
+    ctx.body = {
+        data: delMsg,
+        code: 1,
+        msg: '删除成功',
+    };
+});
 
+router.post('/add', async (ctx) =>{
+    const {
+        account,
+        password,
+    } = ctx.request.body;
+
+    const user = new User({
+        account,
+        password: password || '123123',
+    });
+
+    const res = await user.save();
+
+    ctx.body = {
+        data: res,
+        code: 1,
+        msg: '添加成功',
+    };
+
+});
+// 重置密码接口
+router.post('/reset/password', async (ctx) => {
+    const {
+        id,
+    } = ctx.request.body;
+
+    const user = await User.findOne({
+        _id: id,
+
+    }).exec();
+
+    if (!user) {
+        ctx.body = {
+            msg: '找不到用户',
+            code: 0,
+        };
+        return;
+    }
+
+    user.password = config.DEFAULT_PASSWORD;
+    const res = await user.save();
+
+    ctx.body = {
+        msg: '修改成功',
+        data: {
+            account: res.account,
+            _id: res._id,
+        },
+        code: 1,
+    };
+
+});
 module.exports = router;

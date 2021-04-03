@@ -3,19 +3,33 @@
         <a-card>
             <h2>用户管理</h2>
             <a-divider></a-divider>
-            <a-button>添加用户</a-button>
+            <space-between>
+                <div class="search">
+                    <a-input-search placeholder="根据账户名搜索" enter-button v-model:value="keyword" @search="onSearch" />
+                    <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
+                </div>
+
+                <a-button @click="showAddModal = true" >添加用户</a-button>
+            </space-between>
             <a-divider></a-divider>
             <div>
                 <a-table bordered :pagination="false" :columns="columns" :data-source="list">
                     <template #createdAt="{record}">
                         {{ formatTimestamp(record.meta.createdAt) }}  
                     </template>
+
+                    <template #actions="{record}">
+                        <a href="javascript:;" @click="resetPassword(record)" >重置密码</a>
+                        &nbsp;
+                        <a href="javascript:;" @click="remove(record)" >删除</a> 
+                    </template>
                 </a-table>
             </div>
-            <flex-end style="margin-top: 24px" >
-                <a-pagination></a-pagination>
+            <flex-end style="margin-top: 24px" v-if="!isSearch" >
+                <a-pagination v-model:current="curPage" :total="total" :page-size="10" @change="setPage" ></a-pagination>
             </flex-end>
         </a-card>
+        <add-one v-model:show="showAddModal" @getList="getUser" />
     </div>
 </template>
 

@@ -1,7 +1,9 @@
 import { defineComponent, ref, onMounted, } from 'vue';
 import { user } from '@/service';
+import { message } from 'ant-design-vue'
 import { result, formatTimestamp } from '@/helpers/utils';
-
+import { get, use } from '../../../../book-mgr-be/src/routers/user';
+import AddOne from './AddOne/index.vue';
 
 const columns = [
     
@@ -15,18 +17,32 @@ const columns = [
                 customRender: 'createdAt',
             },
         },
+        {
+            title: '操作',
+            slots: {
+                customRender: 'actions',
+            },
+        },
     
 ];
 
 export default defineComponent({
+
+    components: {
+        AddOne,
+    },
+
     setup() {
         
         const list = ref([]);
         const total = ref(0);
         const curPage = ref(1);
-        
+        const showAddModal = ref(false);
+        const keyword = ref('');
+        const isSearch = ref(false);
+
         const getUser = async () => {
-            const res = await user.list(curPage.value, 10);
+            const res = await user.list(curPage.value, 10, keyword.value);
 
             result(res)
                 .success(({ data: {list: refList, total: refTotal} }) => {
@@ -38,6 +54,41 @@ export default defineComponent({
         onMounted(() => {
             getUser();
         });
+        // 创建删除方法
+        const remove = async ({ _id }) => {
+            const res = await user.remove(_id);
+
+            result(res)
+                .success(({ msg }) => {
+                    message.success(msg);
+                    getUser();
+            });
+        };
+
+        const setPage = (page) => {
+            curPage.value = page;
+            getUser();
+        };
+        const resetPassword = async ({ _id }) => {
+            const res = await user.resetPassword(_id);
+
+            result(res)
+                .success(({ msg }) => {
+                    message.success(msg);
+                });
+        };
+
+        const onSearch = () => {
+            getUser();
+            isSearch.value = !!keyword.value;
+        };
+
+        const backAll = () => {
+            isSearch.value = false;
+            keyword.value = '';
+            getUser();
+        };
+
 
         return {
             list,
@@ -45,7 +96,15 @@ export default defineComponent({
             curPage,
             columns,
             formatTimestamp,
-            
+            remove,
+            showAddModal,
+            getUser,
+            setPage,
+            resetPassword,
+            isSearch,
+            backAll,
+            onSearch,
+            keyword,
         };
     },
 });
