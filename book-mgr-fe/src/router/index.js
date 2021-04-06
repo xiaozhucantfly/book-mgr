@@ -41,12 +41,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (!window.characterInfo) {
+  if (!store.state.characterInfo.length) {
     store.dispatch('getCharacterInfo');
-    window.store = store;
+    
     
   }
-
+  store.dispatch('getUserInfo');
  
   next();
 

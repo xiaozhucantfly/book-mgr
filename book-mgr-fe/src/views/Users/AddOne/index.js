@@ -2,6 +2,7 @@ import { defineComponent,reactive } from 'vue';
 import { user } from '@/service';
 import { message } from 'ant-design-vue';
 import { result, clone } from '@/helpers/utils';
+import store from '@/store';
 
 const defaultFormData = {
     account: '',
@@ -15,9 +16,13 @@ export default defineComponent({
         show: Boolean,
     },
     setup(props, context) {
+        //角色信息获取 
+        const { characterInfo } = store.state;
        
         // 书籍添加表单
         const addForm = reactive(clone(defaultFormData));
+        // 默认角色选择成员
+        addForm.character = characterInfo[1]._id;
         const close = () =>{
             // emit用来触发自己setshow  
             context.emit('update:show', false);
@@ -28,7 +33,7 @@ export default defineComponent({
             const form = clone(addForm)
             
             
-            const res = await user.add(form.account, form.password);
+            const res = await user.add(form.account, form.password, form.character);
 
             result(res)
                 .success((d, { data }) =>{
@@ -45,6 +50,7 @@ export default defineComponent({
             submit,
             props,
             close,
+            characterInfo,
         };
     },
 });

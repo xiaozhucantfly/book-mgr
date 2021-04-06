@@ -16,13 +16,13 @@
                     <a-input v-model:value="addForm.password" />
                 </a-form-item>
                 <a-form-item label="角色">
+                    
                     <a-select
                         v-model:value="addForm.character"
+                        style="width: 220px"
                     >
-                        <a-select-option value="jack">Jack</a-select-option>
-                        <a-select-option value="lucy">Lucy</a-select-option>
-                        <a-select-option value="disabled" disabled>Disabled</a-select-option>
-                        <a-select-option value="Yiminghe">yiminghe</a-select-option>
+                        <a-select-option v-for="item in characterInfo" :key="item._id" :value="item._id">{{ item.title }}</a-select-option>
+                       
                     </a-select>
                 </a-form-item>
             </a-form>
