@@ -4,6 +4,7 @@ const inviteCode = require('./invite-code')
 const book = require('./book');
 const InventoryLog = require('./inventory-log');
 const user = require('./user');
+const character = require('./character');
 // 路由注册
 module.exports = (app) => {
     app.use(auth.routes());
@@ -11,4 +12,5 @@ module.exports = (app) => {
     app.use(book.routes());
     app.use(InventoryLog.routes());
     app.use(user.routes());
+    app.use(character.routes());
 };

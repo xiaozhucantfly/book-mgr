@@ -6,7 +6,7 @@ import { result, clone } from '@/helpers/utils';
 const defaultFormData = {
     account: '',
     password: '',
-    
+    character: '',
 };
 
 export default defineComponent({

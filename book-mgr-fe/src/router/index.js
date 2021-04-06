@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-
+import store from '@/store';
 const routes = [
   {
     path: '/auth',
@@ -40,4 +40,15 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  if (!window.characterInfo) {
+    store.dispatch('getCharacterInfo');
+    window.store = store;
+    
+  }
+
+ 
+  next();
+
+});
 export default router;
