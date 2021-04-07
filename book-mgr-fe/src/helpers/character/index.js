@@ -7,10 +7,8 @@ export const getCharacterInfoById = (id) => {
     const one = characterInfo.find((item) => {
         return item._id === id;
     });
-    if (one) {
-        return one;
-    }
-    return {
-        title: '未知的角色',
+    
+    return one || {
+        title: '未知角色',
     };
 };
