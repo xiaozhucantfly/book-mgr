@@ -1,4 +1,4 @@
-import { createStore } from 'vuex';
+import { createStore, store } from 'vuex';
 import { character, user } from '@/service';
 import { getCharacterInfoById } from '@/helpers/character';
 import { result } from '@/helpers/utils';
@@ -35,9 +35,8 @@ export default createStore({
       result(res)
         .success(({ data }) => {
           store.commit('setUserInfo', data);
-
           store.commit('setUserCharacter', getCharacterInfoById(data.character));
-          console.log(store.state);
+          console.log(store.state)
         });
     },
   },

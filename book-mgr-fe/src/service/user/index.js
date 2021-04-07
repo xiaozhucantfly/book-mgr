@@ -49,4 +49,4 @@ export const editCharacter = (characterId, userId) => {
 export const info = () => {
     // 发送请求
     return axios.get('http://localhost:3000/user/info'); 
-}
+};
