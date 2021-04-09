@@ -1,4 +1,4 @@
-import { createStore, store } from 'vuex';
+import { createStore } from 'vuex';
 import { character, user } from '@/service';
 import { getCharacterInfoById } from '@/helpers/character';
 import { result } from '@/helpers/utils';
@@ -40,6 +40,5 @@ export default createStore({
         });
     },
   },
-  modules: {
-  },
+  
 });

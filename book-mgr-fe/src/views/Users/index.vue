@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-card>
+        <a-card v-only-admin>
             <h2>用户管理</h2>
             <a-divider></a-divider>
             <space-between>

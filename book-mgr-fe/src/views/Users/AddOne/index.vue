@@ -16,7 +16,6 @@
                     <a-input v-model:value="addForm.password" />
                 </a-form-item>
                 <a-form-item label="角色">
-                    
                     <a-select
                         v-model:value="addForm.character"
                         style="width: 220px"

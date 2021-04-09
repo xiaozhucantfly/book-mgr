@@ -75,9 +75,9 @@ router.post('/add', async (ctx) =>{
         password,
         character,
     } = ctx.request.body;
-    console.log(password)
+    
     // 找角色
-    const char = await  Character.findOne({
+    const char = await Character.findOne({
         _id: character,
     });
 

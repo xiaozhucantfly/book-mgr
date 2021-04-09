@@ -1,17 +1,17 @@
-// import { ref, defineComponent, onMounted } from 'vue';
-// import { useRouter, useRoute } from 'vue-router';
-// import menu from '@/config/menu';
+import { ref, defineComponent, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import menu from '@/config/menu';
 
-// export default defineComponent({
-//   setup() {
-//     const router = useRouter();
-//     const route = useRoute();
+export default defineComponent({
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
 
-//     const openKeys = ref([]);
-//     const selectedKeys = ref([]);
+    const openKeys = ref([]);
+    const selectedKeys = ref([]);
 
-//     onMounted(() => {
-//       selectedKeys.value = [route.path];
+    onMounted(() => {
+      selectedKeys.value = [route.path];
 
 //       menu.forEach((item) => {
 //         (item.children || []).forEach((child) => {
@@ -20,17 +20,17 @@
 //           }
 //         });
 //       });
-//     });
+    });
 
-//     const to = (url) => {
-//       router.push(url);
-//     };
+    const to = (url) => {
+      router.push(url);
+    };
 
-//     return {
-//       openKeys,
-//       selectedKeys,
-//       menu,
-//       to,
-//     };
-//   }
-// });
+    return {
+      openKeys,
+      selectedKeys,
+      menu,
+      to,
+    };
+  }
+});

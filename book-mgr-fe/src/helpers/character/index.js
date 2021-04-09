@@ -1,5 +1,9 @@
 import store from '@/store';
-
+// 判断是否为管理员
+export const isAdmin = () => {
+    const uc = store.state.userCharacter;
+    return uc.name === 'admin';
+};
 
 export const getCharacterInfoById = (id) => {
     const { characterInfo } = store.state;

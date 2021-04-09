@@ -13,8 +13,8 @@
     <div class="app-header-placeholder"></div>
     <div class="app-content">
       <div class="left">
-          <div class="app-nav" />
-
+          <app-nav />
+            
           
       </div>
       <div class="right">

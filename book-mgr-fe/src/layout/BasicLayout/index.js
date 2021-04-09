@@ -7,16 +7,5 @@ export default defineComponent({
   components: {
     AppNav: Nav,
   },
-//   setup() {
-//     const logout = () => {
-//       setToken('');
 
-//       window.location.href = '/';
-//     };
-
-//     return {
-//       logout,
-//       store: store.state,
-//     };
-//   },
 });

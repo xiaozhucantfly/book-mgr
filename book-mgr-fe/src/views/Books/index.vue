@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-card>
+        <a-card >
             <h2>图书列表</h2>
 
             <a-divider />
@@ -10,7 +10,7 @@
                     <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
                 </div>
 
-                <a-button @click="show = true">添加一条</a-button>
+                <a-button v-only-admin @click="show = true">添加一条</a-button>
             </space-between>
             
             <a-divider />
@@ -28,9 +28,9 @@
                 <template #actions="record">
                     <a href="javascript:;" @click="toDetail(record)">详情</a>
                     &nbsp;
-                    <a href="javascript:;" @click="update(record)">编辑</a>
+                    <a v-only-admin href="javascript:;" @click="update(record)">编辑</a>
                     &nbsp;
-                    <a href="javascript:;" @click="remove(record)">删除</a>
+                    <a v-only-admin href="javascript:;" @click="remove(record)">删除</a>
                 </template>
             </a-table>
             <space-between style="margin-top: 24px">

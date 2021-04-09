@@ -80,7 +80,7 @@ export default defineComponent({
                                             
                     store.commit('setUserCharacter', getCharacterInfoById(user.character));
                     setToken(token);
-                    console.log(store.state)
+                    
                     router.replace('/books');
                 });
                
