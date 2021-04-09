@@ -181,7 +181,7 @@ router.get('/info', async (ctx) => {
     ctx.body = {
         data: await verify(getToken(ctx)),
         code: 1,
-        msg: '获取成功',
+        msg: '获取成功hhh',
     };
 });
 

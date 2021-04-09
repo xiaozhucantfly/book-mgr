@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { character, user } from '@/service';
+import { character, user} from '@/service';
 import { getCharacterInfoById } from '@/helpers/character';
 import { result } from '@/helpers/utils';
 
@@ -15,6 +15,7 @@ export default createStore({
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
+      
     },
     setUserCharacter(state, userCharacter) {
       state.userCharacter = userCharacter;
@@ -30,6 +31,7 @@ export default createStore({
         });
     },
     async getUserInfo(store) {
+
       const res = await user.info();
       
       result(res)

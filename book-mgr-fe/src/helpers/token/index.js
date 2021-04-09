@@ -1,10 +1,10 @@
-const TOkEN_STORAGE_KEY = '_tt';
+const TOKEN_STORAGE_KEY = '_tt';
 
 export const getToken = () => {
-    return localStorage.getItem(TOkEN_STORAGE_KEY) || '';
+    return localStorage.getItem(TOKEN_STORAGE_KEY) || '';
 };
 
 export const setToken = (token) => {
-    localStorage.setItem(TOkEN_STORAGE_KEY, token);
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
     return token;
 };

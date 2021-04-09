@@ -77,7 +77,7 @@ export default defineComponent({
                     message.success(msg);
 
                     store.commit('setUserInfo', user);
-                                            
+                                           
                     store.commit('setUserCharacter', getCharacterInfoById(user.character));
                     setToken(token);
                     
@@ -87,12 +87,13 @@ export default defineComponent({
         };
 
         return {
-            // 登陆相关的数据
-            loginForm,
-            login,
+           
             // 注册相关的数据
             regForm,
             register,
+            // 登陆相关的数据
+            loginForm,
+            login,
         };
     },
 });

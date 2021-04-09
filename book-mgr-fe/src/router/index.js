@@ -42,9 +42,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (!store.state.characterInfo.length) {
-    store.dispatch('getCharacterInfo');
+     store.dispatch('getCharacterInfo');
   }
-  store.dispatch('getUserInfo');
+   store.dispatch('getUserInfo');
   
   next();
 
