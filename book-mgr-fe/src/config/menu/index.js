@@ -10,4 +10,9 @@ export default [
         url: '/user',
         onlyAdmin: true,
     },
+    {
+        title: '操作日志',
+        url: '/log',
+        onlyAdmin: true,
+    },
 ];
