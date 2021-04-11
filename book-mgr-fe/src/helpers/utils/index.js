@@ -2,7 +2,7 @@ import { message } from 'ant-design-vue';
 import { formatTimeStr } from 'ant-design-vue/lib/statistic/utils';
 export const result = (respons, authShowErrorMsg = true) => {
     const { data } = respons;
-    console.log(data)
+    
     if ((data.code === 0) && authShowErrorMsg) {
         message.error(data.msg);
     };

@@ -9,6 +9,11 @@
                         <template #createdAt="{ record }">
                             {{ formatTimestamp(record.meta.createdAt) }}
                         </template>
+                        
+                        <!-- 删除操作 -->
+                        <template #actions="{ record }">
+                            <a href="javascript:;" @click="remove(record)">删除</a>
+                        </template>
                     </a-table>
                 </div>
                 <flex-end style="margin-top: 24px">

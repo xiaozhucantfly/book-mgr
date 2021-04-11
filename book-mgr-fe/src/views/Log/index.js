@@ -1,6 +1,6 @@
 import { defineComponent, onMounted, ref } from 'vue';
 import { log } from '@/service';
-// import { message } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import { result, formatTimestamp } from '@/helpers/utils';
 import { getLogInfoByPath } from '@/helpers/log';
 
@@ -19,6 +19,12 @@ const columns = [
             customRender: 'createdAt',
         },
     },
+    {
+        title: '操作',
+        slots: {
+            customRender: 'actions',
+        },
+    },
 ];
 
 export default defineComponent({
@@ -33,7 +39,7 @@ export default defineComponent({
             loading.value = true;
             const res = await log.list(curPage.value, 20);
             loading.value = false;
-            console.log(res)
+            
             result(res)
                 .success(({ data: { list: l,total: t} }) => {
                     l.forEach((item) => {
@@ -54,6 +60,16 @@ export default defineComponent({
             getList();
         };
 
+        const remove = async ({ _id }) => {
+            const res = await log.remove(_id);
+
+            result(res)
+                .success(({ msg }) => {
+                    message.success(msg);
+                    getList();
+                })
+        };
+
         return {
             curPage,
             total,
@@ -62,6 +78,7 @@ export default defineComponent({
             setPage,
             loading,
             formatTimestamp,
+            remove,
         }
     },
 });

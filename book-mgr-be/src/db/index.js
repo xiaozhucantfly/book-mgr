@@ -4,6 +4,7 @@ require('./Schemas/Book');
 require('./Schemas/InventoryLog');
 require('./Schemas/Character');
 require('./Schemas/Log');
+require('./Schemas/LogResponse')
 const mongoose = require('mongoose');
 const connect = () => {
     return new Promise((resolve) => {
