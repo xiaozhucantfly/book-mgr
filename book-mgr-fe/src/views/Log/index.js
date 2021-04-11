@@ -1,7 +1,8 @@
 import { defineComponent, onMounted, ref } from 'vue';
 import { log } from '@/service';
 // import { message } from 'ant-design-vue';
-import { result, clone } from '@/helpers/utils';
+import { result, formatTimestamp } from '@/helpers/utils';
+import { getLogInfoByPath } from '@/helpers/log';
 
 const columns = [
     {
@@ -9,15 +10,15 @@ const columns = [
         dataIndex: 'user.account',
     },
     {
-        title: '访问地址',
-        dataIndex: 'request.url',
+        title: '动作',
+        dataIndex: 'action',
     },
-    // {
-    //     title: '库存',
-    //     slots: {
-    //         customRender: 'count',
-    //     },
-    // },
+    {
+        title: '记录时间',
+        slots: {
+            customRender: 'createdAt',
+        },
+    },
 ];
 
 export default defineComponent({
@@ -26,11 +27,20 @@ export default defineComponent({
         const curPage = ref(1);
         const total = ref(0);
         const list = ref([]);
-        const getList = async () =>{
-            const res = log.list(curPage.value, 20);
+        const loading = ref(true);
 
+        const getList = async () => {
+            loading.value = true;
+            const res = await log.list(curPage.value, 20);
+            loading.value = false;
+            console.log(res)
             result(res)
                 .success(({ data: { list: l,total: t} }) => {
+                    l.forEach((item) => {
+                        item.action = getLogInfoByPath(item.request.url);
+                    });
+                    
+                    
                     list.value = l;
                     total.value = t;
                 });
@@ -39,12 +49,19 @@ export default defineComponent({
             getList();
         });
 
+        const setPage = (page) => {
+            curPage.value = page;
+            getList();
+        };
 
         return {
             curPage,
             total,
             list,
             columns,
+            setPage,
+            loading,
+            formatTimestamp,
         }
     },
 });

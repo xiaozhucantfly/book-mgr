@@ -1,17 +1,21 @@
 <template>
     <div>
-        <a-card>
-            <h2>操作日志</h2>
-            <a-divider />
-            <div>
-                <a-table bodered :columns="columns" :data-source="list" >
-
-                </a-table>
-            </div>
-            <flex-end style="margin-top: 24px">
-                <a-pagination />
-            </flex-end>
-        </a-card>
+        <a-spin :spinning="loading">
+            <a-card>
+                <h2>操作日志</h2>
+                <a-divider />
+                <div>
+                    <a-table bodered :columns="columns" :data-source="list" :pagination="false">
+                        <template #createdAt="{ record }">
+                            {{ formatTimestamp(record.meta.createdAt) }}
+                        </template>
+                    </a-table>
+                </div>
+                <flex-end style="margin-top: 24px">
+                    <a-pagination v-model:current="curPage" :pageSize="20" :total="total" @change="setPage"/>
+                </flex-end>
+            </a-card>
+        </a-spin>
     </div>
 </template>
 

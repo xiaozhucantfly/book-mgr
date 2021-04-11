@@ -36,7 +36,6 @@ router.get('/list', async (ctx) => {
         },
         code: 1,
         msg: '获取日志列表成功',
-        
     };
 });
 
