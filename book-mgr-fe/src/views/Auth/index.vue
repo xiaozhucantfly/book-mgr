@@ -4,7 +4,7 @@
         <div class="bg"></div>
         <!-- 表头 -->
         <div class="title-info">
-            <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F10%2F59%2F5b487a5064630_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619506300&t=7d8f0ac500f05a412a5ee9156397e46f" alt="">
+            <img src="https://ncstatic.clewm.net/rsrc/2020/1016/02/4757e4910cb527fc040d019a93ded74f.png?x-oss-process=image/resize,w_750/format,gif/sharpen,100/quality,Q_80/interlace,1/auto-orient,1" alt="">
             <h2 class="title">图书管理系统 后台</h2>
         </div>
         <!-- 表单部分 -->
@@ -23,7 +23,7 @@
                     </a-input>
                 </div>
                 <div class="item">
-                        <a href="">忘记密码</a>
+                        <a href="javascript:;" @click="forgetPassword" >忘记密码</a>
                 </div>
                 <div class="item">
                         <a-button @click="login" size="large" type="primary">
@@ -61,7 +61,7 @@
     </div>
 </template>
 
-<script src="./index.js"></script>
+<script src="./index.jsx"></script>
 
 <style lang="scss" scpoed>
     @import './index.scss';

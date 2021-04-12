@@ -1,10 +1,10 @@
 import { defineComponent, reactive} from 'vue';
 // impotent组件包
 import { UserOutlined, LockOutlined, MailOutlined   } from '@ant-design/icons-vue';
-import { auth } from '@/service';
+import { auth, resetPassword } from '@/service';
 import { result } from '@/helpers/utils';
 import { getCharacterInfoById } from '@/helpers/character';
-import { message } from 'ant-design-vue';
+import { message, Modal, Input } from 'ant-design-vue';
 import store from '@/store';
 import { useRouter } from 'vue-router';
 import { setToken } from '@/helpers/token';
@@ -28,6 +28,30 @@ export default defineComponent({
             password: '',
             inviteCode: '',
         });
+        // 忘记密码逻辑
+        const forgetPassword = () => {
+            Modal.confirm({
+                title: `输入账号申请，管理员审核`,
+                content: (
+                    <div>
+                        <Input class="__forget_password_account"/>
+                    </div>
+                ),
+                onOk: async () => {
+                    const el = document.querySelector('.__forget_password_account');
+                    
+                    let account = el.value;
+                    
+                    console.log(account);
+                    const res = await resetPassword.add(account);
+                    result(res)
+                        .success(({ msg }) => {
+                            message.success(msg);
+                        });
+                },
+            });
+        };
+
         // 注册逻辑
         const register = async () => {
             // 注册提示
@@ -94,6 +118,8 @@ export default defineComponent({
             // 登陆相关的数据
             loginForm,
             login,
+
+            forgetPassword,
         };
     },
 });
