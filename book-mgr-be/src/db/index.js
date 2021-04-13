@@ -6,6 +6,9 @@ require('./Schemas/Character');
 require('./Schemas/Log');
 require('./Schemas/LogResponse');
 require('./Schemas/ForgetPassword');
+require('./Schemas/InviteCode');
+require('./Schemas/BookClassify');
+
 const mongoose = require('mongoose');
 const connect = () => {
     return new Promise((resolve) => {

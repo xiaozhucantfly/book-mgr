@@ -12,8 +12,8 @@ const app = new Koa();
 connect().then(() => {
     app.use(cors());
     app.use(koaBody());
-    app.use(catchTokenError);
-    koaJwtMiddleware(app);
+    // app.use(catchTokenError);
+    // koaJwtMiddleware(app);
     app.use(logMiddleware);
     registerRoutes(app);
     
