@@ -1,4 +1,5 @@
-import BookClassify from '../views/BookClassify';
+import Profile from '../views/Profile';
+
 
 export * as auth from './auth';
 export * as book from './book';
@@ -9,3 +10,4 @@ export * as log from './log';
 export * as resetPassword from './reset-password';
 export * as inviteCode from './invite-code';
 export * as bookClassify from './book-classify';
+export * as profile from './profile';

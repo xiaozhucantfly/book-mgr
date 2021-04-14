@@ -3,6 +3,7 @@ import { book } from '@/service';
 import { message } from 'ant-design-vue';
 import { result, clone } from '@/helpers/utils';
 import moment from 'moment';
+import store from '@/store';
 import { update } from '../../../service/book';
 
 
@@ -53,6 +54,7 @@ export default defineComponent({
             submit,
             props,
             close,
+            store: store.state,
         };
     },
 });

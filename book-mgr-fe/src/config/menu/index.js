@@ -36,4 +36,9 @@ export default [
             },
         ],
     },
+    {
+        title: '个人设置',
+        url: '/profile',
+        onlyAdmin: false,
+    },
 ];

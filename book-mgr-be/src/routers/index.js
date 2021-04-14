@@ -8,6 +8,7 @@ const character = require('./character');
 const log = require('./log');
 const forgetPassword = require('./forget-password');
 const bookClassify = require('./book-classify');
+const profile = require('./profile');
 // 路由注册
 module.exports = (app) => {
     app.use(auth.routes());
@@ -19,4 +20,5 @@ module.exports = (app) => {
     app.use(log.routes());
     app.use(forgetPassword.routes());
     app.use(bookClassify.routes());
+    app.use(profile.routes());
 };

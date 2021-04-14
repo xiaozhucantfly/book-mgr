@@ -1,6 +1,7 @@
 import { defineComponent,reactive } from 'vue';
 import { book } from '@/service';
 import { message } from 'ant-design-vue';
+import store from '@/store';
 import { result, clone } from '@/helpers/utils';
 
 const defaultFormData = {
@@ -16,11 +17,16 @@ export default defineComponent({
     // 添加一条的开关的返回的值为props
     props: {
         show: Boolean,
+        
     },
     setup(props, context) {
        
         // 书籍添加表单
         const addForm = reactive(clone(defaultFormData));
+
+        if (store.state.bookClassify.length) {
+            addForm.classify = store.state.bookClassify[0]._id;
+        };
 
         const submit = async () => {
             // 把publishdate转为时间戳
@@ -33,6 +39,8 @@ export default defineComponent({
                 .success((d, { data }) =>{
                     Object.assign(addForm, defaultFormData);
                     message.success(data.msg);
+
+                    context.emit('getList')
                 }); 
         };
         
@@ -46,6 +54,7 @@ export default defineComponent({
             submit,
             props,
             close,
+            store: store.state,
         };
     },
 });

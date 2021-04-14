@@ -1,7 +1,8 @@
 import { defineComponent, ref, onMounted, } from 'vue';
 import { bookClassify } from '@/service';
 import { result, formatTimestamp } from '@/helpers/utils';
-import { message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
+import { itemProps } from 'ant-design-vue/lib/vc-menu';
 
 const columns = [
     {
@@ -56,12 +57,42 @@ export default defineComponent({
                     getList();
                 });
         };
+
+
+        const updateTitle = async ({ _id }) => {
+            Modal.confirm({
+                title: '请输入新的分类名称',
+                content: (
+                    <div>
+                        <Input class="__book_classify_new_title"/>
+                    </div>
+                ),
+                onOk: async () => {
+                    const title = document.querySelector('.__book_classify_new_title').value;
+                    
+                    const res = await bookClassify.updateTitle(_id, title);
+                    result(res)
+                        .success(({ msg }) => {
+                            message.success(msg);
+                            
+                            list.value.forEach((item) => {
+                                if (item._id === _id) {
+                                item.title = title;
+                            }
+                        });
+                        });
+                },
+            });
+        };
+        
+        
         return {
             title,
             list,
             columns,
             add,
             remove,
+            updateTitle
         };
     },
 

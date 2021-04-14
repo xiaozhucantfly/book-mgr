@@ -10,6 +10,9 @@
             <div>
                 <a-table :pagination="false" bordered :columns="columns" :data-source="list">
                         <template #actions="{ record }" >
+                            
+                            <a-button size="small" @click="updateTitle(record)"  >修改</a-button>
+                            &nbsp;
                             <a-button size="small" @click="remove(record)" type="danger" >删除</a-button>
                         </template>
                 </a-table>
@@ -25,4 +28,4 @@
     </div>
 </template>
 
-<script src="./index.js"></script>
+<script src="./index.jsx"></script>

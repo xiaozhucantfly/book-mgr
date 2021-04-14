@@ -10,7 +10,7 @@
                     <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
                 </div>
 
-                <a-button v-only-admin @click="show = true">添加一条</a-button>
+                <a-button v-only-admin @click="show = true" >添加一条</a-button>
             </space-between>
             
             <a-divider />
@@ -19,7 +19,9 @@
                 <template #publishDate="data">
                     {{ formatTimestamp(data.record.publishDate) }}  
                 </template>
-
+                <template #classify='{ record }'>
+                    {{ getClassifyTitleById(record.classify) }}
+                </template>
                 <template #count="data">
                     <a href="javascript:; " @click="updateCount('IN_COUNT', data.record)" >入库</a>
                     {{ data.record.count }}
@@ -40,7 +42,7 @@
             
         </a-card>
         <!-- 添加一条 -->
-        <add-one v-model:show="show"  />
+        <add-one v-model:show="show" :classifyList="bookClassifyList"  @getList="getList" />
         <!-- 修改书籍 -->
         <update v-model:show="showUpdateModal" :book="curEditBook" @update="updateCurBook" />
     </div>

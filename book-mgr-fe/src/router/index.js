@@ -54,6 +54,12 @@ const routes = [
           component: () => import(/* webpackChunkName: "BookClassify" */ '../views/BookClassify/index.vue'),
         
         },
+        {
+          path: 'profile',
+          name: 'Profile',
+          component: () => import(/* webpackChunkName: "Profile" */ '../views/Profile/index.vue'),
+        
+        },
       ],
   },
   
@@ -70,11 +76,15 @@ router.beforeEach(async (to, from, next) => {
   if (!store.state.characterInfo.length) {
     await store.dispatch('getCharacterInfo');
   }
+  const reqArr = [];
   if (!store.state.userInfo.account) {
-    await store.dispatch('getUserInfo');
+    reqArr.push(store.dispatch('getUserInfo'));
   }
-  
-  // await Promise.all(reqArr);
+  if (!store.state.bookClassify.length) {
+    reqArr.push(store.dispatch('getBookClassify'));
+  }
+ 
+  await Promise.all(reqArr);
   
   next();
 

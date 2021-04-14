@@ -1,9 +1,10 @@
 import { defineComponent, ref, onMounted, } from 'vue';
-import { book } from '@/service';
+import { book, bookClassify} from '@/service';
 // 操作路由的方法router  不是route
 import { useRouter } from 'vue-router';
 import { message, Modal, Input } from 'ant-design-vue';
 import { result, formatTimestamp } from '@/helpers/utils';
+import { getClassifyTitleById } from '@/helpers/book-classify'
 // 模板引入
 import AddOne from './AddOne/index.vue';
 import Update from './Update/index.vue';
@@ -46,7 +47,9 @@ export default defineComponent({
             },
             {
                 title: '分类',
-                dataIndex: 'classify',
+                slots: {
+                    customRender: 'classify',
+                },
             },
             {
                 title: '操作',
@@ -65,6 +68,20 @@ export default defineComponent({
         const keyword = ref('');
         const isSearch = ref(false);
         const curEditBook = ref({});
+        // const bookClassifyList = ref([]);
+        // const classifyLoading = ref(true);
+
+        // const getBookClassify = async () => {
+        //     classifyLoading.value = true;
+        //     const res = await bookClassify.list();
+        //     classifyLoading.value = false;
+
+        //     result(res)
+        //         .success(({ data }) => {
+        //             bookClassifyList.value = data;
+        //         });
+        // };
+
         // 书籍列表切页
         const getList = async () => {
             const res = await book.list({
@@ -81,6 +98,7 @@ export default defineComponent({
                 });
         };
         onMounted( async () => {
+            // await getBookClassify();
             getList();
         });
         //书籍表 切页面 
@@ -199,7 +217,11 @@ export default defineComponent({
             update,
             curEditBook,
             updateCurBook,
-            toDetail
+            toDetail,
+            getList,
+            getClassifyTitleById,
+            // classifyLoading,
+            // bookClassifyList
         }
     },
 });
