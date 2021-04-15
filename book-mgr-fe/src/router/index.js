@@ -60,6 +60,12 @@ const routes = [
           component: () => import(/* webpackChunkName: "Profile" */ '../views/Profile/index.vue'),
         
         },
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: () => import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard/index.vue'),
+        
+        },
       ],
   },
   

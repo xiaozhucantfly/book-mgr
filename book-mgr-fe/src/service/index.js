@@ -1,5 +1,3 @@
-import Profile from '../views/Profile';
-
 
 export * as auth from './auth';
 export * as book from './book';
@@ -11,3 +9,4 @@ export * as resetPassword from './reset-password';
 export * as inviteCode from './invite-code';
 export * as bookClassify from './book-classify';
 export * as profile from './profile';
+export * as dashboard from './dashboard';

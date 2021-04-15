@@ -1,20 +1,22 @@
 <template>
     <div>
-        <a-card >
-            <h2>图书列表</h2>
+        <a-card :title="simple ? '最近添加的书籍' : ''">
+            <div v-if="!simple">
+                <h2>图书列表</h2>
 
-            <a-divider />
-            <space-between>
-                <div class="search">
-                    <a-input-search placeholder="根据书名搜索" enter-button v-model:value="keyword" @search="onSearch" />
-                    <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
-                </div>
+                    <a-divider />
+                    <space-between>
+                        <div class="search">
+                            <a-input-search placeholder="根据书名搜索" enter-button v-model:value="keyword" @search="onSearch" />
+                            <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
+                        </div>
 
-                <a-button v-only-admin @click="show = true" >添加一条</a-button>
-            </space-between>
-            
-            <a-divider />
-            <a-table :columns="columns" :data-source="list" :pagination="false" bordered>
+                        <a-button v-only-admin @click="show = true" >添加一条</a-button>
+                    </space-between>
+                    
+                    <a-divider />
+            </div>
+            <a-table :columns="columns" :data-source="list" :pagination="false" bordered :scroll="{ x : 'max-content' }">
                 <!-- 自定义的出版日期列 -->
                 <template #publishDate="data">
                     {{ formatTimestamp(data.record.publishDate) }}  
@@ -27,7 +29,7 @@
                     {{ data.record.count }}
                     <a href="javascript:; " @click="updateCount('OUT_COUNT', data.record)">出库</a>  
                 </template>
-                <template #actions="record">
+                <template #actions="record" v-if="!simple">
                     <a href="javascript:;" @click="toDetail(record)">详情</a>
                     &nbsp;
                     <a v-only-admin href="javascript:;" @click="update(record)">编辑</a>
@@ -35,10 +37,10 @@
                     <a v-only-admin href="javascript:;" @click="remove(record)">删除</a>
                 </template>
             </a-table>
-            <space-between style="margin-top: 24px">
-                <div />   
+            <flex-end v-if="!simple" style="margin-top: 24px">
+                
                 <a-pagination v-model:current="curPage" :total="total" :page-size="10" @change="setPage"/>
-            </space-between>
+            </flex-end>
             
         </a-card>
         <!-- 添加一条 -->
