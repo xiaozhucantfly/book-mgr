@@ -5,8 +5,10 @@ import { EditOutlined } from '@ant-design/icons-vue'
 import { result, formatTimestamp } from '@/helpers/utils';
 import { get, use } from '../../../../book-mgr-be/src/routers/user';
 import AddOne from './AddOne/index.vue';
+import { getHeaders } from '@/helpers/request'
 import { getCharacterInfoById } from '@/helpers/character';
 import store from '@/store';
+import { addMany } from '../../service/user';
 
 
 const columns = [
@@ -123,6 +125,22 @@ export default defineComponent({
                 });
         };
 
+        const onUploadChange = ({ file }) => {
+            if (file.response) {
+              result(file.response)
+                .success(async (key) => {
+                  const res = await user.addMany(key);
+      
+                  result(res)
+                    .success(({ data: { addCount } }) => {
+                      message.success(`成功添加 ${addCount} 位用户`);
+      
+                      getUser();
+                    });
+                });
+            }
+          };
+
         return {
             list,
             total,
@@ -144,6 +162,8 @@ export default defineComponent({
             showEditCharacterModal,
             editForm,
             characterInfo: store.state.characterInfo,
+            onUploadChange,
+            headers: getHeaders(),
         };
     },
 });

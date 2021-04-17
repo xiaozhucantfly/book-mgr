@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const config = require('../../project.config')
 const { verify, getToken } = require('../../helpers/token') 
 const { getBody } = require('../../helpers/utils');
+const { loadExcel, getFirstSheet } =require('../../helpers/excel')
 // const jwt = require('jsonwebtoken');
 
 const User = mongoose.model('User');
@@ -185,4 +186,53 @@ router.get('/info', async (ctx) => {
     };
 });
 
+
+router.post('/addMany', async (ctx) => {
+    const {
+      key = '',
+    } = ctx.request.body;
+  
+    const path = `${config.UPLOAD_DIR}/${key}`;
+  
+    const excel = loadExcel(path);
+  
+    const sheet = getFirstSheet(excel);
+  
+    const character = await Character.find().exec();
+  
+    
+  
+    const member = character.find((item) => (item.name === 'member'));
+  
+    const arr = [];
+    for (let i = 0; i < sheet.length; i++) {
+      let record = sheet[i];
+  
+      const [account, password = config.DEFAULT_PASSWORD] = record;
+  
+      const one = await User.findOne({
+        account,
+      })
+  
+      if (one) {
+        continue;
+      }
+  
+      arr.push({
+        account,
+        password,
+        character: member._id,
+      });
+    }
+  
+    await User.insertMany(arr);
+  
+    ctx.body = {
+      code: 1,
+      msg: '添加成功',
+      data: {
+        addCount: arr.length,
+      },
+    };
+  });
 module.exports = router;

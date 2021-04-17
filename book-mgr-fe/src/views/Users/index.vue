@@ -9,7 +9,18 @@
                     <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
                 </div>
 
-                <a-button @click="showAddModal = true" >添加用户</a-button>
+                <div>
+                    <a-button @click="showAddModal = true" >添加用户</a-button>
+                    &nbsp;
+                    <a-upload
+                        @change="onUploadChange"
+                        action="http://localhost:3000/upload/file"
+                        :headers="headers"
+                    >
+                    <!-- :headers="headers" -->
+                        <a-button  type="primary" >上传 Excel 添加</a-button>
+                    </a-upload>
+                </div>
             </space-between>
             <a-divider></a-divider>
             <div>

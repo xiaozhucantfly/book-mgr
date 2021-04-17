@@ -1,7 +1,11 @@
-import axios from 'axios';
+import {
+    del,
+    get,
+    post,
+} from '@/helpers/request';
 
 export const list = () => {
-    return axios.get('http://localhost:3000/character/list',
+    return get('/character/list',
         
     );
 };

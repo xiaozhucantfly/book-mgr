@@ -1,14 +1,16 @@
-import axios from 'axios';
+import {
+    del,
+    get,
+    post,
+} from '@/helpers/request';
+
 
 export const list = ( page = 1, size = 20, keyword = '') => {
-    return axios.get('http://localhost:3000/user/list',
+    return get('/user/list',
         {
-            params: {
-                
-                page,
-                size,
-                keyword,
-            }
+            page,
+            size,
+            keyword,
         },
     );
 };
@@ -17,13 +19,13 @@ export const list = ( page = 1, size = 20, keyword = '') => {
 
 export const remove = (id) => {
     // 发送删除请求
-    return axios.delete(`http://localhost:3000/user/${id}`)
+    return del(`/user/${id}`)
 };
 
 // 添加用户的方法
 export const add = (account, password, character) => {
     // 发送请求
-    return axios.post('http://localhost:3000/user/add', {
+    return post('/user/add', {
         account,
         password,
         character,
@@ -33,14 +35,14 @@ export const add = (account, password, character) => {
 //重置用户密码的方法
 export const resetPassword = (id) => {
     // 发送请求
-    return axios.post('http://localhost:3000/user/reset/password', {
+    return post('/user/reset/password', {
        id,
     });
 };
 // 角色编辑
 export const editCharacter = (characterId, userId) => {
     // 发送请求
-    return axios.post('http://localhost:3000/user/update/character', {
+    return post('/user/update/character', {
        character: characterId,
        userId: userId,
     });
@@ -48,5 +50,12 @@ export const editCharacter = (characterId, userId) => {
 
 export const info = () => {
     // 发送请求
-    return axios.get('http://localhost:3000/user/info'); 
+    return get('/user/info'); 
+};
+
+export const addMany = (key) => {
+    // 发送请求
+    return post('/user/addMany', {
+       key,
+    });
 };

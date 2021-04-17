@@ -1,6 +1,9 @@
 const Router = require('@koa/router');
 const mongoose = require('mongoose');
+const config = require('../../project.config')
 const { getBody } = require('../../helpers/utils');
+const { loadExcel, getFirstSheet } =require('../../helpers/excel')
+
 
 // 1代表入 2代表出
 const BOOK_CONST = {
@@ -9,6 +12,8 @@ const BOOK_CONST = {
 };
 const Book = mongoose.model('Book');
 const InventoryLog = mongoose.model('InventoryLog');
+const BookClassify = mongoose.model('BookClassify');
+
 // 封装的找书的id
 const findBookOne = async (id) => {
     const one = await Book.findOne({
@@ -218,4 +223,60 @@ router.get('/detail/:id', async (ctx) => {
     };
 
 });
+
+router.post('/addMany', async (ctx) => {
+    const {
+      key = '',
+    } = ctx.request.body;
+  
+    const path = `${config.UPLOAD_DIR}/${key}`;
+  
+    const excel = loadExcel(path);
+  
+    const sheet = getFirstSheet(excel);
+  
+    const arr = [];
+    for (let i = 0; i < sheet.length; i++) {
+      let record = sheet[i];
+  
+      const [
+        name,
+        price,
+        author,
+        publishDate,
+        classify,
+        count,
+      ] = record;
+      
+      let classifyId = classify;
+  
+      const one = await BookClassify.findOne({
+        title: classify,
+      });
+  
+      if (one) {
+        classifyId = one._id;
+      }
+  
+      arr.push({
+        name,
+        price,
+        author,
+        publishDate:(new Date(1900, 0, publishDate)).valueOf()
+        ,
+        classify: classifyId,
+        count,
+      });
+    }
+    
+    await Book.insertMany(arr);
+  
+    ctx.body = {
+      code: 1,
+      msg: '添加成功',
+      data: {
+        addCount: arr.length,
+      },
+    };
+  });
 module.exports = router;

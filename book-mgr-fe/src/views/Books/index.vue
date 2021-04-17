@@ -10,8 +10,20 @@
                             <a-input-search placeholder="根据书名搜索" enter-button v-model:value="keyword" @search="onSearch" />
                             <a v-if="isSearch" href="javascript:;" @click="backAll">返回</a>
                         </div>
+                        <div>
+                            <a-button v-only-admin @click="show = true" >添加一条</a-button>
+                            &nbsp;
+                            <a-upload
 
-                        <a-button v-only-admin @click="show = true" >添加一条</a-button>
+                                action="http://localhost:3000/upload/file"
+                                :headers="headers"
+                                @change="onUploadChange"
+                            >
+                            <!-- :headers="headers" -->
+                                <a-button  type="primary" >上传 Excel 添加</a-button>
+                            </a-upload>
+                        </div>
+                        
                     </space-between>
                     
                     <a-divider />

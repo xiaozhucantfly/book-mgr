@@ -1,14 +1,18 @@
-import axios from 'axios';
+import {
+    del,
+    get,
+    post,
+} from '@/helpers/request';
 
 export const register = (account, password, inviteCode) => {
-    return axios.post('http://localhost:3000/auth/register',{
+    return post('/auth/register',{
         account,
         password,
         inviteCode,
     });
 };
 export const login = (account, password) => {
-    return axios.post('http://localhost:3000/auth/login',{
+    return post('/auth/login',{
         account,
         password,
     });

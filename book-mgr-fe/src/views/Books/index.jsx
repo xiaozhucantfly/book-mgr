@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import { message, Modal, Input } from 'ant-design-vue';
 import { result, formatTimestamp } from '@/helpers/utils';
 import { getClassifyTitleById } from '@/helpers/book-classify'
+import { getHeaders } from '@/helpers/request'
 // 模板引入
 import AddOne from './AddOne/index.vue';
 import Update from './Update/index.vue';
@@ -207,6 +208,23 @@ export default defineComponent({
 
         };
 
+        const onUploadChange = ({ file }) => {
+            if (file.response) {
+              result(file.response)
+                .success(async (key) => {
+                  
+                  const res = await book.addMany(key);
+      
+                  result(res)
+                    .success(({ data: { addCount } }) => {
+                      message.success(`成功添加 ${addCount} 本书`);
+      
+                      getList();
+                    });
+                });
+            }
+          };
+
         return {
             columns,
             show,
@@ -229,6 +247,8 @@ export default defineComponent({
             getList,
             getClassifyTitleById,
             simple: props.simple,
+            onUploadChange,
+            headers: getHeaders(),
             // classifyLoading,
             // bookClassifyList
         }

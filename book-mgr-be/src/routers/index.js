@@ -10,6 +10,7 @@ const forgetPassword = require('./forget-password');
 const bookClassify = require('./book-classify');
 const profile = require('./profile');
 const dashboard = require('./dashboard');
+const upload = require('./upload');
 // 路由注册
 module.exports = (app) => {
     app.use(auth.routes());
@@ -23,4 +24,5 @@ module.exports = (app) => {
     app.use(bookClassify.routes());
     app.use(profile.routes());
     app.use(dashboard.routes());
+    app.use(upload.routes());
 };
