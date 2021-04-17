@@ -10,6 +10,10 @@ import Update from '@/views/Books/Update/index.vue';
 // 学员详情页？
 const columns = [
     {
+        title: '操作者',
+        dataIndex: 'account',
+    },
+    {
         title: '数量',
         dataIndex: 'num',
     },
@@ -93,7 +97,6 @@ export default defineComponent({
             curLogType.value = type;
             getInventoryLog();
         };
-        
         return {
             d: detailInfo,
             formatTimestamp,

@@ -113,7 +113,6 @@ router.post('/update/count', async (ctx) => {
     const {
         id,
         type,
-
     } = ctx.request.body;
 
     let {
@@ -150,7 +149,7 @@ router.post('/update/count', async (ctx) => {
     const res = await book.save();
     // 出入库日志保存
     const log = new InventoryLog({
-        
+        bookId: id,
         num:Math.abs(num) ,
         type,
     });

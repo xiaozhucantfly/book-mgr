@@ -14,8 +14,9 @@ const router = new Router({
 router.get('/list', async (ctx) => {
     const {
         type,
+        
     } = ctx.query;
-
+    
     let {
         size,
         page,

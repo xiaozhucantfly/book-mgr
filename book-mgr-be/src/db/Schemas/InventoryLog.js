@@ -8,6 +8,7 @@ const InventoryLogSchema = new mongoose.Schema({
     type: String,
     num: Number,
     user: String,
+    bookId: String,
 
     meta: getMeta(),
 });
