@@ -5,7 +5,7 @@
         <!-- 表头 -->
         <div class="title-info">
             <img src="./logo.png" alt="">
-            <h2 class="title">图书管理系统 后台</h2>
+            <h2 class="title">图书管理系统</h2>
         </div>
         <!-- 表单部分 -->
         <div class="form">

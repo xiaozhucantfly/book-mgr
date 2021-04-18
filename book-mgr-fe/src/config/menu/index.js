@@ -23,7 +23,7 @@ export default [
     },
     {
         title: '杂项',
-        onlyAdmin: false,
+        onlyAdmin: true,
         children: [
             {
                 title: '重置密码列表',

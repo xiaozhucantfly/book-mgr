@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 
 const { getBody } = require('../../helpers/utils');
-// const jwt = require('jsonwebtoken');
+
 
 const InventoryLog = mongoose.model('InventoryLog');
 
@@ -14,8 +14,9 @@ const router = new Router({
 router.get('/list', async (ctx) => {
     const {
         type,
-        
+        id,
     } = ctx.query;
+    
     
     let {
         size,
@@ -28,6 +29,7 @@ router.get('/list', async (ctx) => {
     const list = await InventoryLog
         .find({
             type,
+            bookId: id,
         })
         .sort({
             _id: -1,

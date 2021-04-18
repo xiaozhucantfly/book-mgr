@@ -1,5 +1,7 @@
 <template>
   <div class="basic-layout">
+    <!-- 背景 -->
+    <div class="bg"></div>
     <div class="app-header">
         <div class="left">
             <img src="./logo.png" alt="">

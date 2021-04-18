@@ -1,3 +1,15 @@
+.basic-layout .bg {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-image: url("./pexels-pixabay-256472.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
 .basic-layout .app-header-placeholder {
   height: 64px;
   width: 100%;
@@ -8,7 +20,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: rgba(238, 226, 226, 0.57);
   box-shadow: 0 2px 8px #f0f1f2;
   display: flex;
   align-items: center;

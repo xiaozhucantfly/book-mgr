@@ -4,14 +4,15 @@ import { result, formatTimestamp } from '@/helpers/utils';
 import { book, inventoryLog } from '@/service';
 import { CheckOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
+import { getClassifyTitleById } from '@/helpers/book-classify';
 // 引入编辑方法
 import Update from '@/views/Books/Update/index.vue';
 // 书籍详情页
 // 学员详情页？
 const columns = [
     {
-        title: '操作者',
-        dataIndex: 'account',
+        title: '操作人员',
+        dataIndex: 'user.account',
     },
     {
         title: '数量',
@@ -58,7 +59,7 @@ export default defineComponent({
         };
         // 获取出入库日志
         const getInventoryLog = async () => {
-            const res = await inventoryLog.list(curLogType.value, logCurPage.value, 10);
+            const res = await inventoryLog.list(curLogType.value, logCurPage.value, 10,id);
             
             result(res)
              .success(({ data: { list, total } }) => {
@@ -97,6 +98,7 @@ export default defineComponent({
             curLogType.value = type;
             getInventoryLog();
         };
+        console.log(id)
         return {
             d: detailInfo,
             formatTimestamp,
@@ -110,6 +112,7 @@ export default defineComponent({
             logFilter,
             curLogType,
             logCurPage,
+            getClassifyTitleById,
         };
     },
 });

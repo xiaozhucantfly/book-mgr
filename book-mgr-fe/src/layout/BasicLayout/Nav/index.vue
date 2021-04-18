@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="menu" >
       <a-menu
           style="width: 100%"
           v-model:openKeys="openKeys"
@@ -8,6 +8,7 @@
           v-for="(item) in menu" 
           :key="item.url"
           v-only-admin="item.onlyAdmin"
+          class="Nav"
         >
           <a-sub-menu v-if="item.children" :key="item.title">
             <template #title>

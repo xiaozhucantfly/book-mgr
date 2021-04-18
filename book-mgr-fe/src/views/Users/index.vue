@@ -18,7 +18,7 @@
                         :headers="headers"
                     >
                     <!-- :headers="headers" -->
-                        <a-button  type="primary" >上传 Excel 添加</a-button>
+                        <a-button  type="primary" >上传 Xlsx 批量添加</a-button>
                     </a-upload>
                 </div>
             </space-between>

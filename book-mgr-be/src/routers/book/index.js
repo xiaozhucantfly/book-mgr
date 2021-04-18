@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const config = require('../../project.config')
 const { getBody } = require('../../helpers/utils');
 const { loadExcel, getFirstSheet } =require('../../helpers/excel')
-
+const { verify, getToken } = require('../../helpers/token');
 
 // 1代表入 2代表出
 const BOOK_CONST = {
@@ -21,6 +21,7 @@ const findBookOne = async (id) => {
     }).exec();
     return one;
 };
+
 
 
 const router = new Router({
@@ -120,6 +121,16 @@ router.post('/update/count', async (ctx) => {
      } = ctx.request.body;
     
     num = Number(num);
+    // 获取用户token从而识别用户
+    let payload = {};
+    try {
+        payload = await verify(getToken(ctx));
+    } catch(e) {
+        payload = {
+            account: '未知用户',
+            id: '',
+        };
+    }
 
     const book =await findBookOne(id);
     // 书没找到
@@ -147,8 +158,13 @@ router.post('/update/count', async (ctx) => {
         return;
     }
     const res = await book.save();
+
     // 出入库日志保存
     const log = new InventoryLog({
+        user: {
+            account: payload.account,
+            id: payload.id,
+        },
         bookId: id,
         num:Math.abs(num) ,
         type,

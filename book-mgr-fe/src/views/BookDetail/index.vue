@@ -23,7 +23,7 @@
                     </div>
                     <div class="item">
                         <div class="title">分类</div>
-                        <div class="content">{{ d.classify }}</div>
+                        <div class="content">{{ getClassifyTitleById(d.classify) }}</div>
                     </div>
                 </div>
                 <!-- 第二行 -->
