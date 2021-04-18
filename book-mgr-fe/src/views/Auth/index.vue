@@ -35,12 +35,12 @@
             <!-- 注册 -->
             <a-tab-pane key="2" tab="注册">
                 <div class="item">
-                    <a-input size="large" placeholder="账户" v-model:value="regForm.account">
+                    <a-input size="large" placeholder="账户尽量使用字母与数字，不应超长" v-model:value="regForm.account">
                         <template #prefix><UserOutlined /></template>
                     </a-input>
                 </div>
                 <div class="item">
-                    <a-input size="large" placeholder="密码" v-model:value="regForm.password">
+                    <a-input size="large" placeholder="密码不应超长" v-model:value="regForm.password">
                         <template #prefix><LockOutlined /></template>
                     </a-input>
                 </div>

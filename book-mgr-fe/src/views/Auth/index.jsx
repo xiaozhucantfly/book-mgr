@@ -2,12 +2,19 @@ import { defineComponent, reactive} from 'vue';
 // impotent组件包
 import { UserOutlined, LockOutlined, MailOutlined   } from '@ant-design/icons-vue';
 import { auth, resetPassword } from '@/service';
-import { result } from '@/helpers/utils';
+import { result,clone } from '@/helpers/utils';
 import { getCharacterInfoById } from '@/helpers/character';
 import { message, Modal, Input } from 'ant-design-vue';
 import store from '@/store';
 import { useRouter } from 'vue-router';
 import { setToken } from '@/helpers/token';
+
+const defaultFormData = {
+    account: '',
+    password: '',
+    inviteCode: '',
+    // character: '',
+};
 
 export default defineComponent({
     //进行icon注册
@@ -20,14 +27,13 @@ export default defineComponent({
     setup() {
 
         const router = useRouter();
-
+        // console.log(store.state)
+        // const { characterInfo } = store.state;
+        
         // 注册用表单数据
         // const account = ref('');
-        const regForm = reactive({
-            account: '',
-            password: '',
-            inviteCode: '',
-        });
+        const regForm = reactive(clone(defaultFormData));
+        // regForm.character = characterInfo[1]._id;
         // 忘记密码逻辑
         const forgetPassword = () => {
             Modal.confirm({
@@ -71,7 +77,9 @@ export default defineComponent({
             const res = await auth.register(
                 regForm.account, 
                 regForm.password,
-                regForm.inviteCode);
+                regForm.inviteCode,
+                // regForm.character
+                );
             result(res)
                 .success((data) =>{
                     message.success(data.msg);

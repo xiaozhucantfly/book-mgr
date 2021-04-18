@@ -13,6 +13,7 @@ export const getCharacterInfoById = (id) => {
     });
     
     return one || {
-        title: '未知角色',
+        //此处本未知
+        title: '成员',
     };
 };

@@ -6,6 +6,7 @@ const config = require('../../project.config')
 // 拿到对应的module
 const User = mongoose.model('User');
 const InviteCode = mongoose.model('InviteCode');
+const Character = mongoose.model('Character');
 
 const router = new Router({
     prefix: '/auth',
@@ -18,6 +19,7 @@ router.post('/register', async (ctx) => {
         password,
         inviteCode,
     } = getBody(ctx);
+    // 
     // 做一个表单校验
     if (account === '' || password ==='' || inviteCode ==='') {
         ctx.body = {
@@ -70,6 +72,7 @@ router.post('/register', async (ctx) => {
     const user = new User({
         account,
         password,
+       
     });
 
     // 把创建的用户传递到mongodb

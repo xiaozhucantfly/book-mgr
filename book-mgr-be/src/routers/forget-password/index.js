@@ -25,6 +25,9 @@ router.get('/list', async (ctx) => {
         .find({
             status: 1,
         })
+        .sort({
+            _id: -1,
+        })
         .skip((page - 1) * size)
         .limit(size)
         .exec();
