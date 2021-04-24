@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '@/helpers/token'
 
-const domain = 'http://localhost:3000';
+const domain = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
 
 const getURL = (path) => {
     return `${domain}${path}`;
