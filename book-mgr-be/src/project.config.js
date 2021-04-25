@@ -7,5 +7,5 @@ module.exports = {
 
     UPLOAD_DIR: path.resolve(__dirname, '../upload'),
 
-    SERVER_PORT: 3001,
+    SERVER_PORT: 80,
 };

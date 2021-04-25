@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import { message, Modal, Input } from 'ant-design-vue';
 import { result, formatTimestamp } from '@/helpers/utils';
 import { getClassifyTitleById } from '@/helpers/book-classify'
-import { getHeaders } from '@/helpers/request'
+import { getHeaders, domain } from '@/helpers/request'
 // 模板引入
 import AddOne from './AddOne/index.vue';
 import Update from './Update/index.vue';
@@ -249,6 +249,7 @@ export default defineComponent({
             simple: props.simple,
             onUploadChange,
             headers: getHeaders(),
+            domain,
             // classifyLoading,
             // bookClassifyList
         }

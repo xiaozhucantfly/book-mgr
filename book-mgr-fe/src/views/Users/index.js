@@ -5,7 +5,7 @@ import { EditOutlined } from '@ant-design/icons-vue'
 import { result, formatTimestamp } from '@/helpers/utils';
 import { get, use } from '../../../../book-mgr-be/src/routers/user';
 import AddOne from './AddOne/index.vue';
-import { getHeaders } from '@/helpers/request'
+import { getHeaders, domain } from '@/helpers/request'
 import { getCharacterInfoById } from '@/helpers/character';
 import store from '@/store';
 import { addMany } from '../../service/user';
@@ -164,6 +164,7 @@ export default defineComponent({
             characterInfo: store.state.characterInfo,
             onUploadChange,
             headers: getHeaders(),
+            domain,
         };
     },
 });

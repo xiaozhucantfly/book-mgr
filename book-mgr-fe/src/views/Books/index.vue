@@ -15,7 +15,7 @@
                             &nbsp;
                             <a-upload
 
-                                action="http://localhost:3000/upload/file"
+                                :action="`${domain}/upload/file`"
                                 :headers="headers"
                                 @change="onUploadChange"
                             >
